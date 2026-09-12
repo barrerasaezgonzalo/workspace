@@ -1,0 +1,153 @@
+"use client";
+
+import { CalendarDays, X } from "lucide-react";
+import { useTaskModal } from "@/app/hooks/useTaskModal";
+import { isInvalidTitle } from "@/app/utils";
+import { TaskModalProps } from "@/app/types/tasks";
+
+export function TaskModal(props: TaskModalProps) {
+  const {
+    title,
+    summary,
+    date,
+    important,
+    saving,
+    isEditing,
+    setSummary,
+    setDate,
+    setImportant,
+    handleTitleChange,
+    handleSubmit,
+    handleClose,
+  } = useTaskModal(props);
+
+  if (!props.isOpen) {
+    return null;
+  }
+  const disabled = saving || isInvalidTitle(title);
+
+  return (
+    <div
+      onClick={handleClose}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+    >
+      <div
+        onClick={(event) => event.stopPropagation()}
+        className="w-full max-w-md overflow-hidden rounded border border-white/20 bg-neutral-900 shadow-2xl"
+      >
+        <header className="flex items-center justify-between border-b border-neutral-700 px-5 py-4">
+          <h2 className="text-lg font-semibold text-white">
+            {isEditing ? "Editar tarea" : "Agregar tarea"}
+          </h2>
+
+          <button
+            type="button"
+            onClick={handleClose}
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-neutral-400 transition bg-neutral-800 hover:text-white"
+          >
+            <X size={18} />
+          </button>
+        </header>
+
+        <form onSubmit={handleSubmit} className="space-y-5 px-5 py-5">
+          <label className="block">
+            <span className="mb-2 block text-base font-medium text-neutral-200">
+              Título
+              <span className="ml-1 text-orange-400">*</span>
+            </span>
+
+            <input
+              autoFocus
+              type="text"
+              value={title}
+              onChange={(event) => handleTitleChange(event.target.value)}
+              placeholder="Ingrese un título"
+              className={`h-11 w-full rounded border bg-transparent px-3 text-sm text-neutral-300 outline-none transition placeholder:text-neutral-500 border-white/20`}
+            />
+          </label>
+
+          <label className="block">
+            <span className="mb-2 block text-base font-medium text-neutral-200">
+              Resumen
+            </span>
+
+            <textarea
+              value={summary}
+              onChange={(event) => setSummary(event.target.value)}
+              placeholder="Escribe un breve resumen"
+              rows={4}
+              className="w-full resize-none rounded border border-white/20 bg-transparent px-3 py-3 text-sm text-neutral-300 outline-none transition placeholder:text-neutral-500"
+            />
+          </label>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block">
+              <span className="mb-2 block text-base font-medium text-neutral-200">
+                Fecha
+              </span>
+
+              <div className="relative">
+                <CalendarDays
+                  size={16}
+                  className="pointer-events-none absolute left-3 top-2/5 -translate-y-2/5 text-neutral-400"
+                />
+
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(event) => setDate(event.target.value)}
+                  className="h-11 w-full rounded border border-white/20 bg-transparent mb-2.5 pl-10 pr-3 text-sm text-neutral-300 outline-none transition [color-scheme:dark]"
+                />
+              </div>
+            </label>
+
+            <section>
+              <span className="mb-2 block text-base font-medium text-neutral-200">
+                Importante
+              </span>
+
+              <button
+                type="button"
+                onClick={() => setImportant((current) => !current)}
+                className="flex h-11 w-full cursor-pointer items-center justify-between rounded border border-white/20 px-3 transition"
+              >
+                <span className="text-xs text-neutral-400">
+                  {important ? "Importante" : "No importante"}
+                </span>
+
+                <span
+                  className={`relative h-6 w-11 shrink-0 rounded-full transition ${important ? "bg-blue-500" : "bg-neutral-600"
+                    }`}
+                >
+                  <span
+                    className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${important ? "left-6" : "left-1"
+                      }`}
+                  />
+                </span>
+              </button>
+            </section>
+          </div>
+
+          <footer className="flex justify-end gap-2 border-t border-neutral-700 pt-5">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="cursor-pointer rounded border border-white/20 px-4 py-2 text-xs font-medium text-neutral-400 transition hover:border-white/50 hover:text-neutral-300">
+              Cancelar
+            </button>
+
+            <button
+              type="submit"
+              disabled={disabled}
+              className={`cursor-pointer rounded px-4 py-2 text-xs font-medium text-white transition bg-blue-500 hover:bg-blue-600  
+                disabled:opacity-30 disabled:cursor-not-allowed
+            }`}
+            >
+              {saving ? "Guardando..." : isEditing ? "Guardar" : "Crear"}
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  );
+}

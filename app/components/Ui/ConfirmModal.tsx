@@ -1,0 +1,97 @@
+"use client";
+
+import { AlertTriangle, Info, X } from "lucide-react";
+import { ConfirmModalProps } from "@/app/types";
+
+export function ConfirmModal({
+  isOpen,
+  title,
+  description,
+  variant = "warning",
+  confirmText = "Aceptar",
+  cancelText = "Cancelar",
+  onConfirm,
+  onClose,
+  showCancel = true,
+}: ConfirmModalProps) {
+  if (!isOpen) return null;
+
+  const isWarning = variant === "warning";
+
+  return (
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="confirm-modal-title"
+        aria-describedby="confirm-modal-description"
+        onClick={(event) => event.stopPropagation()}
+        className="w-full max-w-md overflow-hidden rounded border border-white/20 bg-neutral-900 shadow-2xl"
+      >
+        <div className="flex items-start justify-between px-5 pt-5">
+          <div
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
+              isWarning
+                ? "bg-red-500/10 text-red-400"
+                : "bg-blue-500/10 text-blue-400"
+            }`}
+          >
+            {isWarning ? <AlertTriangle size={30} /> : <Info size={30} />}
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Cerrar modal"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral-800 text-neutral-400 transition hover:text-white"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="px-5 pb-5 pt-4">
+          <h2
+            id="confirm-modal-title"
+            className="text-lg font-semibold text-white"
+          >
+            {title}
+          </h2>
+
+          <p
+            id="confirm-modal-description"
+            className="mt-2 text-ms leading-6 text-neutral-400"
+          >
+            {description}
+          </p>
+        </div>
+
+        <div className="flex justify-end gap-4 border-t border-white/20 px-5 py-4">
+          {showCancel && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="cursor-pointer rounded-lg border border-white/20 px-4 py-2 text-xs font-medium text-neutral-400 transition hover:border-white/50 hover:text-neutral-300"
+            >
+              {cancelText}
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={onConfirm}
+            className={`cursor-pointer rounded-lg px-4 py-2 text-xs font-medium text-neutral-200 transition hover:text-neutral-100 ${
+              isWarning
+                ? "bg-red-500 border-red-500 hover:bg-red-700"
+                : "bg-blue-500 border-blue-500 hover:bg-blue-700"
+            }`}
+          >
+            {confirmText}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
