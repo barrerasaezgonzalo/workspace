@@ -54,24 +54,28 @@ export function getCalendarMonthLabel(
   currentDate: Date,
   formatter: Intl.DateTimeFormat,
 ) {
-  return formatter
-    .format(currentDate)
-    .replace(" de ", " ");
+  return formatter.format(currentDate).replace(" de ", " ");
 }
 
-export const calendarMonthFormatter =
-  new Intl.DateTimeFormat("es-CL", {
-    month: "long",
-    year: "numeric",
-  });
+export const calendarMonthFormatter = new Intl.DateTimeFormat("es-CL", {
+  month: "long",
+  year: "numeric",
+});
 
-export const calendarDateFormatter =
-  new Intl.DateTimeFormat("es-CL", {
-    day: "2-digit",
-    month: "short",
-  });
+export const calendarDateFormatter = new Intl.DateTimeFormat("es-CL", {
+  day: "2-digit",
+  month: "short",
+});
 
-export const calendarDayFormatter =
-  new Intl.DateTimeFormat("es-CL", {
+export const calendarDayFormatter = new Intl.DateTimeFormat("es-CL", {
+  weekday: "long",
+});
+
+export function getFormattedToday() {
+  return new Date().toLocaleDateString("es-ES", {
     weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
+}

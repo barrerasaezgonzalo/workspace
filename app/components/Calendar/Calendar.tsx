@@ -4,7 +4,6 @@ import type { CalendarProps } from "@/app/types";
 import { useCalendar } from "@/app/hooks/useCalendar";
 import { CalendarGroup } from "./CalendarGroup";
 
-
 export function Calendar({ onEdit }: CalendarProps) {
   const {
     visibleEvents,
@@ -17,7 +16,7 @@ export function Calendar({ onEdit }: CalendarProps) {
   } = useCalendar();
 
   return (
-    <section className="w-full pt-4 font-mono">
+    <section className="w-full pt-4">
       <CalendarGroup
         tasks={visibleEvents}
         onEdit={onEdit}

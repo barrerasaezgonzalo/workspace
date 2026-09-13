@@ -2,17 +2,10 @@
 
 import { useState } from "react";
 
-import type {
-  Task,
-  TaskGroupConfig,
-  TaskStatusOption,
-} from "@/app/types";
+import type { Task, TaskGroupConfig, TaskStatusOption } from "@/app/types";
 import { isDateOverdue } from "@/app/utils";
 
-export function useTaskItem(
-  task: Task,
-  taskGroupConfig: TaskGroupConfig[],
-) {
+export function useTaskItem(task: Task, taskGroupConfig: TaskGroupConfig[]) {
   const [confirming, setConfirming] = useState(false);
 
   const overdue =
@@ -35,6 +28,6 @@ export function useTaskItem(
     confirming,
     setConfirming,
     currentStatus,
-    availableStatusOptions
+    availableStatusOptions,
   };
 }

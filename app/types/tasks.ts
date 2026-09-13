@@ -10,28 +10,26 @@ export type Task = {
   date?: string | null;
   important: boolean;
   summary?: string | null;
+  created_at?: string;
+  time?: string;
+  subtasks?: Subtask[];
 };
 
 export type TaskItemProps = {
-  task: Task;  
+  task: Task;
   onEdit: (task: Task) => void;
   onDelete: (task: Task) => void;
   confirming?: boolean;
-  taskGroupConfig: TaskGroupConfig[];  
+  taskGroupConfig: TaskGroupConfig[];
 };
 
 export type TaskFormData = {
   title: string;
   summary: string;
   date: string;
+  time?: string;
   important: boolean;
-};
-
-export type TaskModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  task?: Task | null;
-  onSubmit: (data: TaskFormData) => Promise<void> | void;
+  subtasks?: Subtask[];
 };
 
 export type TaskStatusOption = {
@@ -55,4 +53,17 @@ export type TaskGroupProps = {
   taskGroupConfig: TaskGroupConfig[];
   onEdit: (task: Task) => void;
   onDelete: (task: Task) => void;
+};
+
+export interface TaskDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  task?: Task | null;
+  onSubmit: (data: TaskFormData) => Promise<void> | void;
+}
+
+export type Subtask = {
+  id: number;
+  title: string;
+  completed: boolean;
 };

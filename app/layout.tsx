@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Workspace",
+  description: "Gestiona tus tareas y proyectos de forma simple y organizada.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>
-                  <TaskProvider>{children}</TaskProvider>
+          <TaskProvider>{children}</TaskProvider>
         </AuthProvider>
       </body>
     </html>

@@ -2,46 +2,35 @@
 
 import { useContext, useState } from "react";
 import { Check, Circle, CircleGauge } from "lucide-react";
-
 import { TaskContext } from "../providers/TaskProvider";
-import type {
-  Task,
-  TaskFormData,
-  TaskGroupConfig,
-} from "../types";
-import {
-  isDateOverdue,
-  showResponseMessage,
-} from "../utils";
+import type { Task, TaskFormData, TaskGroupConfig } from "../types";
+import { isDateOverdue, showResponseMessage } from "../utils";
 
 export function useTasks() {
   const context = useContext(TaskContext);
 
   if (!context) {
-    throw new Error(
-      "useTasks debe usarse dentro de TaskProvider",
-    );
+    throw new Error("useTasks debe usarse dentro de TaskProvider");
   }
 
   const {
     tasks,
     createTask,
     updateTask,
+    moveTask,
     deleteTask,
     searchQuery,
     setSearchQuery,
     selectedTask,
-    isModalOpen,
+    isDrawerOpen,
     isDeleteModalOpen,
     setSelectedTask,
-    setIsModalOpen,
+    setIsDrawerOpen,
     setIsDeleteModalOpen,
+    loading,
   } = context;
 
-  const [
-    responseOperationMessage,
-    setResponseOperationMessage,
-  ] = useState("");
+  const [responseOperationMessage, setResponseOperationMessage] = useState("");
 
   const filteredTasks = tasks.filter((task) => {
     const query = searchQuery.trim().toLowerCase();
@@ -56,36 +45,28 @@ export function useTasks() {
     );
   });
 
-  const todoTasks = filteredTasks.filter(
-    (task) => task.status === "todo",
-  );
+  const todoTasks = filteredTasks.filter((task) => task.status === "todo");
 
   const inProgressTasks = filteredTasks.filter(
     (task) => task.status === "in_progress",
   );
 
-  const doneTasks = filteredTasks.filter(
-    (task) => task.status === "done",
-  );
+  const doneTasks = filteredTasks.filter((task) => task.status === "done");
 
   const totalTasks = tasks.length;
 
   const overdueTasks = tasks.filter(
-    (task) =>
-      task.status !== "done" &&
-      !!task.date &&
-      isDateOverdue(task.date),
+    (task) => task.status !== "done" && !!task.date && isDateOverdue(task.date),
   );
 
-  const handleCreateTask = async (
-    data: TaskFormData,
-  ) => {
+  const handleCreateTask = async (data: TaskFormData) => {
     await createTask({
       title: data.title,
-      summary: data.summary || undefined,
-      date: data.date || undefined,
+      summary: data.summary,
+      date: data.date,
+      time: data.time,
       important: data.important,
-      status: "todo",
+      subtasks: data.subtasks ?? [],
     });
 
     showResponseMessage(
@@ -94,18 +75,18 @@ export function useTasks() {
     );
   };
 
-  const handleUpdateTask = async (
-    data: TaskFormData,
-  ) => {
+  const handleUpdateTask = async (data: TaskFormData) => {
     if (!selectedTask) {
       return;
     }
 
     await updateTask(selectedTask.id, {
       title: data.title,
-      summary: data.summary || undefined,
-      date: data.date || undefined,
+      summary: data.summary,
+      date: data.date,
+      time: data.time,
       important: data.important,
+      subtasks: data.subtasks ?? [],
     });
 
     showResponseMessage(
@@ -132,12 +113,12 @@ export function useTasks() {
 
   const handleOpenEdit = (task: Task) => {
     setSelectedTask(task);
-    setIsModalOpen(true);
+    setIsDrawerOpen(true);
   };
 
   const handleOpenCreate = () => {
     setSelectedTask(null);
-    setIsModalOpen(true);
+    setIsDrawerOpen(true);
   };
 
   const handleOpenDelete = (task: Task) => {
@@ -183,15 +164,16 @@ export function useTasks() {
     totalTasks,
     todoTasks,
     overdueTasks,
+    doneTasks,
     taskGroupConfig,
     searchQuery,
     selectedTask,
     responseOperationMessage,
-    isModalOpen,
+    isDrawerOpen,
     isDeleteModalOpen,
     setSearchQuery,
     setSelectedTask,
-    setIsModalOpen,
+    setIsDrawerOpen,
     setIsDeleteModalOpen,
     handleOpenCreate,
     handleOpenEdit,
@@ -199,5 +181,7 @@ export function useTasks() {
     handleUpdateTask,
     handleCreateTask,
     handleDeleteTask,
+    moveTask,
+    loading,
   };
 }

@@ -13,14 +13,14 @@ export function CalendarGroup({
   dateFormatter,
   dayFormatter,
   monthLabel,
-  onEdit
+  onEdit,
 }: CalendarGroupProps) {
   return (
     <div className="px-3 py-4">
-      <div className="mb-4 flex w-full items-center justify-between">
-        <CalendarDays className="h-6 w-6 text-red-400" />
+      <div className="mb-4 flex w-full items-center justify-between  border-b border-white/20 pb-2">
+        <CalendarDays className="h-6 w-6 text-blue-400" />
 
-        <span className="mr-auto pl-4 text-base font-medium capitalize text-neutral-300">
+        <span className="hidden xl:flex mr-auto pl-4 text-base font-medium capitalize text-neutral-300">
           {monthLabel}
         </span>
 
@@ -45,9 +45,7 @@ export function CalendarGroup({
         </div>
       ) : (
         <div className="flex min-h-20 items-center justify-center">
-          <p className="text-base text-neutral-500">
-            No hay tareas este mes.
-          </p>
+          <p className="text-base text-neutral-500">No hay tareas este mes.</p>
         </div>
       )}
     </div>

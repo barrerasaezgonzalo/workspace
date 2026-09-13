@@ -11,7 +11,6 @@ import { useTasks } from "./useTasks";
 
 export function useCalendar() {
   const { tasks } = useTasks();
-
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const visibleEvents = useMemo(() => {
@@ -19,9 +18,7 @@ export function useCalendar() {
       if (!task.date) {
         return false;
       }
-
       const taskDate = new Date(`${task.date}T00:00:00`);
-
       return (
         taskDate.getFullYear() === currentDate.getFullYear() &&
         taskDate.getMonth() === currentDate.getMonth()
@@ -31,15 +28,13 @@ export function useCalendar() {
 
   const handleNextMonth = () => {
     setCurrentDate(
-      (current) =>
-        new Date(current.getFullYear(), current.getMonth() + 1, 1),
+      (current) => new Date(current.getFullYear(), current.getMonth() + 1, 1),
     );
   };
 
   const handlePreviousMonth = () => {
     setCurrentDate(
-      (current) =>
-        new Date(current.getFullYear(), current.getMonth() - 1, 1),
+      (current) => new Date(current.getFullYear(), current.getMonth() - 1, 1),
     );
   };
 
@@ -47,10 +42,7 @@ export function useCalendar() {
     setCurrentDate(new Date());
   };
 
-  const monthLabel = getCalendarMonthLabel(
-    currentDate,
-    calendarMonthFormatter,
-  );
+  const monthLabel = getCalendarMonthLabel(currentDate, calendarMonthFormatter);
 
   return {
     visibleEvents,

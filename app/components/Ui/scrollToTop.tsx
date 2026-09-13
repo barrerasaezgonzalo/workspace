@@ -7,7 +7,7 @@ export function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 400);
+      setVisible(window.scrollY > 70);
     };
     window.addEventListener("scroll", handleScroll);
     handleScroll();

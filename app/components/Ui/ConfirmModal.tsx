@@ -53,22 +53,19 @@ export function ConfirmModal({
         </div>
 
         <div className="px-5 pb-5 pt-4">
-          <h2
-            id="confirm-modal-title"
-            className="text-lg font-semibold text-white"
-          >
+          <h2 id="confirm-modal-title" className="text-base text-neutral-200">
             {title}
           </h2>
 
           <p
             id="confirm-modal-description"
-            className="mt-2 text-ms leading-6 text-neutral-400"
+            className="mt-2 text-sm leading-6 text-neutral-400"
           >
             {description}
           </p>
         </div>
 
-        <div className="flex justify-end gap-4 border-t border-white/20 px-5 py-4">
+        <div className="flex justify-end gap-4 border-t border-white/10 px-5 py-4">
           {showCancel && (
             <button
               type="button"

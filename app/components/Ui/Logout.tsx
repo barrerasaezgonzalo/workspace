@@ -10,12 +10,12 @@ export function Logout({
   return (
     <>
       <button
-          type="button"
-          onClick={() => setIsLogoutOpen(true)}
-          className="flex justify-center h-10 w-10 mx-4 cursor-pointer border border-red-400 bg-transparent items-center gap-2 rounded-sm
-            text-red-300 hover:border-red-500 hover:text-red-400" >
-          <LogOut className="h-4 w-4" />
-        </button>
+        type="button"
+        onClick={() => setIsLogoutOpen(true)}
+        className="flex mr-2 ml-8 cursor-pointer items-center text-red-400 hover:text-red-500"
+      >
+        <LogOut size={25} />
+      </button>
 
       <ConfirmModal
         isOpen={isLogoutOpen}

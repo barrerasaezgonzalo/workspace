@@ -2,9 +2,11 @@
 
 import { useTasks } from "@/app/hooks/useTasks";
 import { TaskGroup } from "./TaskGroup";
-import { TaskModal } from "./TaskModal";
 import { ConfirmModal } from "../Ui/ConfirmModal";
 import { Toast } from "../Ui/Toast";
+import { TaskDrawer } from "./TaskDrawer";
+import { DndContext, type DragEndEvent } from "@dnd-kit/core";
+import { Task } from "@/app/types";
 
 export function Tasks() {
   const {
@@ -12,29 +14,39 @@ export function Tasks() {
     responseOperationMessage,
     handleOpenEdit,
     handleOpenDelete,
-    isModalOpen,
-    setIsModalOpen,
+    isDrawerOpen,
+    setIsDrawerOpen,
     selectedTask,
     handleUpdateTask,
     handleCreateTask,
     isDeleteModalOpen,
     setIsDeleteModalOpen,
     handleDeleteTask,
+    moveTask,
   } = useTasks();
-  
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over) return;
+    const taskId = Number(active.id);
+    const newStatus = over.id as Task["status"];
+    await moveTask(taskId, newStatus);
+  };
+
   return (
-    <section className="w-full font-mono pt-4">
+    <section className="w-full pt-4">
+      <DndContext onDragEnd={handleDragEnd}>
+        <TaskGroup
+          taskGroupConfig={taskGroupConfig}
+          onEdit={handleOpenEdit}
+          onDelete={handleOpenDelete}
+        />
+      </DndContext>
 
-      <TaskGroup
-        taskGroupConfig={taskGroupConfig}
-        onEdit={handleOpenEdit}
-        onDelete={handleOpenDelete}
-      />
-
-      <TaskModal
-        isOpen={isModalOpen}
+      <TaskDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
         task={selectedTask}
-        onClose={() => setIsModalOpen(false)}
         onSubmit={selectedTask ? handleUpdateTask : handleCreateTask}
       />
 
@@ -48,6 +60,6 @@ export function Tasks() {
       />
 
       <Toast message={responseOperationMessage} />
-    </section >
+    </section>
   );
 }

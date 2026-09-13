@@ -22,13 +22,11 @@ export type ToastProps = {
   icon?: LucideIcon;
 };
 
-
 export type LogoutProps = {
   setIsLogoutOpen: (value: boolean) => void;
   isLogoutOpen: boolean;
   handleLogout: () => void;
 };
-
 
 export type DashboardLayoutProps = {
   children: React.ReactNode;

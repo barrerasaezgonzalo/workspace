@@ -1,6 +1,5 @@
 import { Task } from ".";
 
-
 export type CalendarGroupProps = {
   tasks: Task[];
   onEdit: (task: Task) => void;
@@ -27,4 +26,3 @@ export type CalendarButtonsProps = {
 export type CalendarProps = {
   onEdit: (task: Task) => void;
 };
-

@@ -5,10 +5,10 @@ import { CalendarDays, ListTodo } from "lucide-react";
 import { useTasks } from "./useTasks";
 import { parseDateYMD } from "../utils";
 
-export function  useNotifications() {
+export function useNotifications() {
   const { tasks, overdueTasks } = useTasks();
 
-  const notifications = useMemo(() => { 
+  const notifications = useMemo(() => {
     const today = new Date();
     const todayTasks = tasks.filter((task) => {
       if (!task.date) {
@@ -33,8 +33,8 @@ export function  useNotifications() {
               icon: CalendarDays,
               title:
                 todayTasks.length === 1
-                  ? "Tienes 1 tarea para hoy"
-                  : `Tienes ${todayTasks.length} tareas para hoy`,
+                  ? "1 Tarea para hoy"
+                  : `${todayTasks.length} tareas para hoy`,
             },
           ]
         : [];
@@ -47,16 +47,13 @@ export function  useNotifications() {
               icon: ListTodo,
               title:
                 overdueTasks.length === 1
-                  ? "1 tarea atrasada"
+                  ? "1 Tarea atrasada"
                   : `${overdueTasks.length} tareas atrasadas`,
             },
           ]
         : [];
 
-    return [
-      ...taskNotifications,
-      ...calendarNotifications,
-    ];
+    return [...taskNotifications, ...calendarNotifications];
   }, [tasks, overdueTasks]);
 
   return {
