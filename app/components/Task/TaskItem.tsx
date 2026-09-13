@@ -41,7 +41,7 @@ export function TaskItem({
             />
           )}
 
-          <span className="truncate">{task.title}</span>
+          <span className="truncate text-neutral-200">{task.title}</span>
         </div>
 
         {subtasks.length > 0 && (
