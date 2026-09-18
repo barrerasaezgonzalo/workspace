@@ -31,6 +31,7 @@ export function useNotifications() {
             {
               id: "today-events",
               icon: CalendarDays,
+              length: todayTasks.length,
               title:
                 todayTasks.length === 1
                   ? "1 Tarea para hoy"
@@ -45,6 +46,7 @@ export function useNotifications() {
             {
               id: "overdue-tasks",
               icon: ListTodo,
+              length: todayTasks.length,
               title:
                 overdueTasks.length === 1
                   ? "1 Tarea atrasada"

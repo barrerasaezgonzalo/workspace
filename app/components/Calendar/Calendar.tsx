@@ -11,11 +11,12 @@ export function Calendar() {
     handleCurrentMonth,
     handleNextMonth,
     handlePreviousMonth,
+    currentDate,
   } = useCalendar();
   const { handleOpenEdit } = useTasks();
 
   return (
-    <section className="w-full pt-4">
+    <section className="w-full">
       <CalendarGroup
         tasks={visibleEvents}
         onEdit={handleOpenEdit}
@@ -23,6 +24,7 @@ export function Calendar() {
         onPreviousMonth={handlePreviousMonth}
         onCurrentMonth={handleCurrentMonth}
         onNextMonth={handleNextMonth}
+        currentDate={currentDate}
       />
     </section>
   );

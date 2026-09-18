@@ -25,7 +25,7 @@ export function useNoteDrawer({
     setContent("");
     setImportant(false);
     setPrivateNote(false);
-    setSuggestedContent(null);      
+    setSuggestedContent(null);
   };
 
   useEffect(() => {

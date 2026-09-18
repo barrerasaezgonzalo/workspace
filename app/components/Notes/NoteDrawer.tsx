@@ -5,7 +5,12 @@ import type { NoteDrawerProps } from "@/app/types";
 import { useNoteDrawer } from "@/app/hooks/useNoteDrawer";
 import { isInvalidTitle } from "@/app/utils";
 
-export function NoteDrawer({ isOpen, onClose, note, onSubmit }: NoteDrawerProps) {
+export function NoteDrawer({
+  isOpen,
+  onClose,
+  note,
+  onSubmit,
+}: NoteDrawerProps) {
   const {
     title,
     setTitle,
@@ -32,16 +37,24 @@ export function NoteDrawer({ isOpen, onClose, note, onSubmit }: NoteDrawerProps)
   });
 
   const disabled = saving || isInvalidTitle(title);
-  const displayedContent = suggestedContent ? (suggestedContent ?? content) : content;
+  const displayedContent = suggestedContent
+    ? (suggestedContent ?? content)
+    : content;
 
   return (
     <div
       className={`fixed inset-0 z-50 bg-black/40 transition-opacity duration-500 ${
-        isOpen  ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0" }`} >
+        isOpen
+          ? "pointer-events-auto opacity-100"
+          : "pointer-events-none opacity-0"
+      }`}
+    >
       <div
         onClick={(event) => event.stopPropagation()}
         className={`absolute right-0 top-0 h-full w-full transform border-l border-white/20 bg-neutral-800 transition-transform duration-500 ease-in-out md:w-1/2 ${
-          isOpen ? "translate-x-0" : "translate-x-full" }`} >
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
         <header className="flex items-center justify-between border-b border-white/20 px-5 py-4">
           <div>
             <h2 className="text-base font-semibold text-neutral-200">
@@ -67,7 +80,6 @@ export function NoteDrawer({ isOpen, onClose, note, onSubmit }: NoteDrawerProps)
           className="custom-scroll h-[calc(100%-73px)] overflow-y-auto px-5 py-5"
         >
           <div className="space-y-5">
-
             <label className="block">
               <span className="mb-2 block text-sm font-medium text-neutral-200">
                 Título
@@ -220,7 +232,7 @@ export function NoteDrawer({ isOpen, onClose, note, onSubmit }: NoteDrawerProps)
             <p className="text-xs text-neutral-400">
               Puedes volver a tu nota original o generar una nueva versión
               cuantas veces quieras.
-            </p>           
+            </p>
           </div>
 
           <footer className="mt-6 flex justify-end gap-2 border-t border-neutral-700 pt-5">

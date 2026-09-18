@@ -25,7 +25,7 @@ export function Tasks() {
   } = useTasks();
 
   return (
-    <section className="w-full pt-4">
+    <section className="relative pt-2 ">
       <DndContext onDragEnd={handleDragEnd}>
         <TaskGroup
           taskGroupConfig={taskGroupConfig}

@@ -33,8 +33,8 @@ export async function POST(request: Request) {
           messages: [
             {
               role: "system",
-             content:
-            "Mejora sustancialmente el contenido de la nota. Reorganiza las ideas para que tengan una estructura lógica y fácil de seguir. Amplía o desarrolla las ideas cuando sea necesario para hacerlas más útiles y completas, pero sin inventar información ni cambiar el significado original. Elimina redundancias, aclara conceptos ambiguos y mejora la redacción. Conserva toda la información relevante del contenido original. Puedes convertir texto en listas o secciones cuando ayude a organizarlo. Devuelve únicamente texto plano. No uses Markdown, no uses títulos con #, no uses asteriscos, guiones, backticks ni ningún otro símbolo de formato Markdown. ",
+              content:
+                "Mejora sustancialmente el contenido de la nota. Reorganiza las ideas para que tengan una estructura lógica y fácil de seguir. Amplía o desarrolla las ideas cuando sea necesario para hacerlas más útiles y completas, pero sin inventar información ni cambiar el significado original. Elimina redundancias, aclara conceptos ambiguos y mejora la redacción. Conserva toda la información relevante del contenido original. Puedes convertir texto en listas o secciones cuando ayude a organizarlo. Devuelve únicamente texto plano. No uses Markdown, no uses títulos con #, no uses asteriscos, guiones, backticks ni ningún otro símbolo de formato Markdown. ",
             },
             {
               role: "user",

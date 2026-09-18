@@ -20,8 +20,7 @@ export function NotesGroup({
           </p>
         </div>
       ) : (
-        <div
-          className="h-[400px] custom-scroll overflow-x-hidden overflow-y-auto pr-4">
+        <div className="h-[360px] custom-scroll overflow-x-hidden overflow-y-auto pr-2 mb-4">
           <div className="grid h-full grid-cols-2 gap-4 py-2">
             {notes.map((note) => (
               <NotesItem

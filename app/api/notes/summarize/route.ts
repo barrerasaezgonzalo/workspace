@@ -32,10 +32,10 @@ export async function POST(request: Request) {
           model: "openai/gpt-oss-120b",
           messages: [
             {
-             
               role: "system",
-             content:
-  "Genera un resumen breve y claro de la nota. No incluyas información sensible como tokens, claves, contraseñas o credenciales, aunque aparezcan en el contenido original. Resume únicamente la información relevante y omite cualquier dato sensible. Devuelve únicamente el resumen, sin títulos, explicaciones ni formato adicional."},
+              content:
+                "Genera un resumen breve y claro de la nota. No incluyas información sensible como tokens, claves, contraseñas o credenciales, aunque aparezcan en el contenido original. Resume únicamente la información relevante y omite cualquier dato sensible. Devuelve únicamente el resumen, sin títulos, explicaciones ni formato adicional.",
+            },
             {
               role: "user",
               content: `Título: ${title || "Sin título"}\n\nContenido:\n${content}`,

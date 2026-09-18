@@ -33,6 +33,8 @@ export function useTasks() {
     setIsDrawerOpen,
     setIsDeleteModalOpen,
     loadingTasks,
+    showCalendarTasks,
+    setShowCalendarTasks,
   } = context;
 
   const [responseOperationMessage, setResponseOperationMessage] = useState("");
@@ -47,11 +49,15 @@ export function useTasks() {
       task.summary?.toLowerCase().includes(query)
     );
   });
-  const todoTasks = filteredTasks.filter((task) => task.status === "todo");
-  const inProgressTasks = filteredTasks.filter(
+
+  const visibleTasks = filteredTasks.filter(
+    (task) => showCalendarTasks || !task.date,
+  );
+  const todoTasks = visibleTasks.filter((task) => task.status === "todo");
+  const inProgressTasks = visibleTasks.filter(
     (task) => task.status === "in_progress",
   );
-  const doneTasks = filteredTasks.filter((task) => task.status === "done");
+  const doneTasks = visibleTasks.filter((task) => task.status === "done");
   const totalTasks = tasks.length;
   const overdueTasks = tasks.filter(
     (task) => task.status !== "done" && !!task.date && isDateOverdue(task.date),
@@ -188,6 +194,8 @@ export function useTasks() {
     handleDeleteTask,
     loadingTasks,
     handleDragEnd,
-    filteredTasks
+    filteredTasks,
+    showCalendarTasks,
+    setShowCalendarTasks,
   };
 }

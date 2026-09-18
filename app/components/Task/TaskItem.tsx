@@ -1,4 +1,10 @@
-import { CalendarDays, Circle, CircleCheck, Expand, Trash2 } from "lucide-react";
+import {
+  CalendarDays,
+  Circle,
+  CircleCheck,
+  Expand,
+  Trash2,
+} from "lucide-react";
 import { TaskItemProps } from "../../types";
 import { useDraggable } from "@dnd-kit/core";
 import { formatDateTime, isDateOverdue } from "@/app/utils";
@@ -41,7 +47,8 @@ export function TaskItem({ task, onEdit, onDelete }: TaskItemProps) {
             onClick={(event) => {
               event.stopPropagation();
               onEdit(task);
-            }} >
+            }}
+          >
             <span className="truncate text-neutral-200">{task.title}</span>
             <Expand size={20} />
           </button>
@@ -65,10 +72,11 @@ export function TaskItem({ task, onEdit, onDelete }: TaskItemProps) {
                     className={`h-2 w-2 shrink-0 rounded-full ${subtask.completed ? "bg-green-500" : "bg-neutral-600"}`}
                   />
                   <span
-                    className={`truncate ${subtask.completed
-                      ? "text-neutral-500 line-through"
-                      : "text-neutral-400"
-                      }`}
+                    className={`truncate ${
+                      subtask.completed
+                        ? "text-neutral-500 line-through"
+                        : "text-neutral-400"
+                    }`}
                   >
                     {subtask.title}
                   </span>

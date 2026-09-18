@@ -27,6 +27,8 @@ type TaskContextType = {
   moveTask: (id: number, status: Task["status"]) => Promise<void>;
   deleteTask: (id: number) => Promise<void>;
   loadTasks: () => Promise<void>;
+  showCalendarTasks: boolean;
+  setShowCalendarTasks: Dispatch<SetStateAction<boolean>>;
 };
 
 export const TaskContext = createContext<TaskContextType | null>(null);
@@ -41,6 +43,7 @@ export function TaskProvider({ children }: TaskProviderProps) {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [showCalendarTasks, setShowCalendarTasks] = useState(false);
 
   const loadTasks = useCallback(async () => {
     try {
@@ -100,11 +103,13 @@ export function TaskProvider({ children }: TaskProviderProps) {
   }, [loadTasks]);
 
   const moveTask = async (id: number, status: Task["status"]) => {
-     const task = tasks.find((task) => task.id === id);
+    const task = tasks.find((task) => task.id === id);
     if (!task || task.status === status) {
       return;
     }
-    const { data: { user }} = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
     if (!user) {
       throw new Error("No autorizado");
@@ -323,6 +328,8 @@ export function TaskProvider({ children }: TaskProviderProps) {
         deleteTask,
         loadTasks,
         moveTask,
+        showCalendarTasks,
+        setShowCalendarTasks,
       }}
     >
       {children}

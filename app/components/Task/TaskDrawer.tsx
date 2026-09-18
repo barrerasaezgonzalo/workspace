@@ -33,7 +33,6 @@ export function TaskDrawer(props: TaskDrawerProps) {
 
   return (
     <div
-     
       className={`fixed inset-0 z-50 bg-black/40 transition-opacity duration-500 ${props.isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
     >
       <div

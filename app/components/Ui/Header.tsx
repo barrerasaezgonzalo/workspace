@@ -1,38 +1,17 @@
 "use client";
 
 import { useAuth } from "@/app/hooks/useAuth";
-import {
-  CalendarDays,
-  Plus,
-  PocketKnife,
-  Search,
-  Siren,
-  X,
-} from "lucide-react";
+import { PocketKnife, Search, X } from "lucide-react";
 import { useState } from "react";
 import { Logout } from "./Logout";
 import { useTasks } from "@/app/hooks/useTasks";
-import { useNotifications } from "@/app/hooks/useNotifications";
 import { getFormattedToday } from "@/app/utils";
 
 export function Header() {
-  const { notifications } = useNotifications();
   const formatedDate = getFormattedToday();
-  const overdueAlert = notifications.find(
-    (alert) => alert.id === "overdue-tasks",
-  );
-  const todayEvents = notifications.find(
-    (alert) => alert.id === "today-events",
-  );
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const { handleLogout } = useAuth();
-  const {
-    searchQuery,
-    setSearchQuery,
-    handleOpenCreate,
-    totalTasks,
-    doneTasks,
-  } = useTasks();
+  const { searchQuery, setSearchQuery } = useTasks();
 
   return (
     <>
@@ -66,50 +45,7 @@ export function Header() {
             </button>
           )}
         </div>
-
-        <div className="flex items-center gap-3 ml-auto md:ml-0">
-          <div className="hidden xl:flex items-center gap-3 rounded border border-white/10 bg-white/5 px-3 py-2 text-sm text-neutral-300">
-            <span className="font-medium">
-              {doneTasks.length}/{totalTasks}
-            </span>
-            <strong className="text-neutral-500">finalizadas</strong>
-            <span className="text-neutral-600">•</span>
-            <span className="text-emerald-400">
-              {Math.round((doneTasks.length / totalTasks) * 100)}%
-            </span>
-          </div>
-
-          {overdueAlert && (
-            <div className="ml-4 hidden xl:flex items-center gap-3 rounded border border-white/10 bg-white/5 px-3 py-2 text-sm">
-              <Siren size={16} className="text-red-400" />
-              <span>
-                <strong className="text-neutral-500">
-                  {overdueAlert.title}
-                </strong>
-              </span>
-            </div>
-          )}
-
-          {todayEvents && (
-            <div className="ml-4 hidden xl:flex items-center gap-3 rounded border border-white/10 bg-white/5 px-3 py-2 text-sm">
-              <CalendarDays size={16} className="text-cyan-400" />
-              <span>
-                <strong className="text-neutral-500">
-                  {todayEvents.title}
-                </strong>
-              </span>
-            </div>
-          )}
-
-          <button
-            onClick={handleOpenCreate}
-            type="button"
-            className="ml-4 -mr-4 md:mr-0 flex items-center gap-3 rounded border border-white/10 bg-white/5 px-3 py-2 text-sm cursor-pointer text-neutral-300 hover:border-white/50 hover:text-neutral-100"
-          >
-            <Plus size={16} />
-            <span className="hidden lg:flex"> Nueva tarea </span>
-          </button>
-
+        <div className="flex mr-4">
           <Logout
             setIsLogoutOpen={setIsLogoutOpen}
             isLogoutOpen={isLogoutOpen}

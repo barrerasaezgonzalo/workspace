@@ -7,7 +7,7 @@ export function CalendarButtons({
   onNextMonth,
 }: CalendarButtonsProps) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 mr-4">
       <button
         type="button"
         onClick={onPreviousMonth}

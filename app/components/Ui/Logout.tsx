@@ -12,7 +12,7 @@ export function Logout({
       <button
         type="button"
         onClick={() => setIsLogoutOpen(true)}
-        className="flex mr-2 ml-8 cursor-pointer items-center text-red-400 hover:text-red-500"
+        className="flex cursor-pointer items-center text-red-400 hover:text-red-500"
       >
         <LogOut size={25} />
       </button>

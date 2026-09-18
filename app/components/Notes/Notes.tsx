@@ -38,10 +38,8 @@ export function NotesModule() {
   };
 
   return (
-    <div className="p-5 text-neutral-400">
-      <NoteHeader
-        onCreate={handleOpenCreate}
-      />
+    <div className="text-neutral-400 mt-8">
+      <NoteHeader onCreate={handleOpenCreate} />
 
       <NotesGroup
         notes={filteredNotes}
