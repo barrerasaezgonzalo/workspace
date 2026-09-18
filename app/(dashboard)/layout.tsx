@@ -5,11 +5,14 @@ import { ScrollToTop } from "../components/Ui/scrollToTop";
 import { DashboardSkeleton } from "../components/Ui/DashboardSkeleton";
 import { DashboardLayoutProps } from "../types";
 import { useTasks } from "../hooks/useTasks";
+import { useNotes } from "../hooks/useNotes";
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const { loading } = useAuth();
-  const { loading: loadingTask } = useTasks();
-  if (loading || loadingTask) {
+  const { loadingTasks } = useTasks();
+  const { loadingNotes } = useNotes();
+
+  if (loading || loadingTasks || loadingNotes) {
     return <DashboardSkeleton />;
   }
 

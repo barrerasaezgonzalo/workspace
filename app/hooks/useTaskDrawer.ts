@@ -48,10 +48,6 @@ export function useTaskDrawer({
     }
   }, [isOpen, task]);
 
-  const handleTitleChange = (value: string) => {
-    setTitle(value);
-  };
-
   const handleAddSubtask = () => {
     const value = newSubtask.trim();
 
@@ -133,7 +129,7 @@ export function useTaskDrawer({
     setTime,
     setImportant,
     setNewSubtask,
-    handleTitleChange,
+    setTitle,
     handleAddSubtask,
     handleToggleSubtask,
     handleDeleteSubtask,

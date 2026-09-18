@@ -1,31 +1,28 @@
 "use client";
 
-import type { CalendarProps } from "@/app/types";
 import { useCalendar } from "@/app/hooks/useCalendar";
 import { CalendarGroup } from "./CalendarGroup";
+import { useTasks } from "@/app/hooks/useTasks";
 
-export function Calendar({ onEdit }: CalendarProps) {
+export function Calendar() {
   const {
     visibleEvents,
     monthLabel,
-    dateFormatter,
-    dayFormatter,
     handleCurrentMonth,
     handleNextMonth,
     handlePreviousMonth,
   } = useCalendar();
+  const { handleOpenEdit } = useTasks();
 
   return (
     <section className="w-full pt-4">
       <CalendarGroup
         tasks={visibleEvents}
-        onEdit={onEdit}
+        onEdit={handleOpenEdit}
         monthLabel={monthLabel}
         onPreviousMonth={handlePreviousMonth}
         onCurrentMonth={handleCurrentMonth}
         onNextMonth={handleNextMonth}
-        dateFormatter={dateFormatter}
-        dayFormatter={dayFormatter}
       />
     </section>
   );

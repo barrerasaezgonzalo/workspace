@@ -21,7 +21,7 @@ export function TaskDrawer(props: TaskDrawerProps) {
     setTime,
     setImportant,
     setNewSubtask,
-    handleTitleChange,
+    setTitle,
     handleAddSubtask,
     handleToggleSubtask,
     handleDeleteSubtask,
@@ -33,7 +33,7 @@ export function TaskDrawer(props: TaskDrawerProps) {
 
   return (
     <div
-      onClick={handleClose}
+     
       className={`fixed inset-0 z-50 bg-black/40 transition-opacity duration-500 ${props.isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
     >
       <div
@@ -72,7 +72,7 @@ export function TaskDrawer(props: TaskDrawerProps) {
 
               <input
                 value={title}
-                onChange={(event) => handleTitleChange(event.target.value)}
+                onChange={(event) => setTitle(event.target.value)}
                 autoFocus
                 type="text"
                 placeholder="Ingrese un título"
@@ -94,7 +94,7 @@ export function TaskDrawer(props: TaskDrawerProps) {
               />
             </label>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-3">
               <label className="block">
                 <span className="mb-2 block text-sm font-medium text-neutral-200">
                   Fecha
@@ -134,41 +134,41 @@ export function TaskDrawer(props: TaskDrawerProps) {
                   />
                 </div>
               </label>
-            </div>
 
-            <section>
-              <span className="mb-2 block text-sm font-medium text-neutral-200">
-                Importante
-              </span>
-
-              <button
-                onClick={() => setImportant((current) => !current)}
-                type="button"
-                className="flex h-11 w-full cursor-pointer items-center justify-between rounded border border-white/20 px-3 transition hover:border-white/30"
-              >
-                <span className="flex items-center gap-2 text-sm text-neutral-400">
-                  <span
-                    className={`h-2.5 w-2.5 rounded-full ${
-                      important ? "bg-orange-400" : "bg-neutral-600"
-                    }`}
-                  />
-
-                  {important ? "Importante" : "No importante"}
+              <section>
+                <span className="mb-2 block text-sm font-medium text-neutral-200">
+                  Importante
                 </span>
 
-                <span
-                  className={`relative h-6 w-11 shrink-0 rounded-full transition ${
-                    important ? "bg-orange-500" : "bg-neutral-600"
-                  }`}
+                <button
+                  onClick={() => setImportant((current) => !current)}
+                  type="button"
+                  className="flex h-11 w-full cursor-pointer items-center justify-between rounded border border-white/20 px-3 transition hover:border-white/30"
                 >
+                  <span className="flex items-center gap-2 text-sm text-neutral-400">
+                    <span
+                      className={`h-2.5 w-2.5 rounded-full ${
+                        important ? "bg-orange-400" : "bg-neutral-600"
+                      }`}
+                    />
+
+                    {important ? "Importante" : "No importante"}
+                  </span>
+
                   <span
-                    className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${
-                      important ? "left-6" : "left-1"
+                    className={`relative h-6 w-11 shrink-0 rounded-full transition ${
+                      important ? "bg-orange-500" : "bg-neutral-600"
                     }`}
-                  />
-                </span>
-              </button>
-            </section>
+                  >
+                    <span
+                      className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${
+                        important ? "left-6" : "left-1"
+                      }`}
+                    />
+                  </span>
+                </button>
+              </section>
+            </div>
 
             <TaskSubtasks
               subtasks={subtasks}

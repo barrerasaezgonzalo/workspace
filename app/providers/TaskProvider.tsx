@@ -15,12 +15,10 @@ import { supabase } from "../lib/supabaseClient";
 
 type TaskContextType = {
   tasks: Task[];
-  loading: boolean;
-  searchQuery: string;
+  loadingTasks: boolean;
   selectedTask: Task | null;
   isDrawerOpen: boolean;
   isDeleteModalOpen: boolean;
-  setSearchQuery: Dispatch<SetStateAction<string>>;
   setSelectedTask: Dispatch<SetStateAction<Task | null>>;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
   setIsDeleteModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -39,20 +37,18 @@ type TaskProviderProps = {
 
 export function TaskProvider({ children }: TaskProviderProps) {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [loadingTasks, setLoadingTasks] = useState(true);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const loadTasks = useCallback(async () => {
     try {
-      setLoading(true);
+      setLoadingTasks(true);
 
       const {
         data: { user },
       } = await supabase.auth.getUser();
-
       if (!user) {
         setTasks([]);
         return;
@@ -83,6 +79,7 @@ export function TaskProvider({ children }: TaskProviderProps) {
 
       const normalizedTasks: Task[] = (data ?? []).map((task) => ({
         ...task,
+        createdAt: task.created_at,
         subtasks: [...(task.task_subtasks ?? [])]
           .sort((a, b) => a.position - b.position)
           .map((subtask) => ({
@@ -94,7 +91,7 @@ export function TaskProvider({ children }: TaskProviderProps) {
 
       setTasks(normalizedTasks);
     } finally {
-      setLoading(false);
+      setLoadingTasks(false);
     }
   }, []);
 
@@ -103,9 +100,11 @@ export function TaskProvider({ children }: TaskProviderProps) {
   }, [loadTasks]);
 
   const moveTask = async (id: number, status: Task["status"]) => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+     const task = tasks.find((task) => task.id === id);
+    if (!task || task.status === status) {
+      return;
+    }
+    const { data: { user }} = await supabase.auth.getUser();
 
     if (!user) {
       throw new Error("No autorizado");
@@ -312,12 +311,10 @@ export function TaskProvider({ children }: TaskProviderProps) {
     <TaskContext.Provider
       value={{
         tasks,
-        loading,
-        searchQuery,
+        loadingTasks,
         selectedTask,
         isDrawerOpen,
         isDeleteModalOpen,
-        setSearchQuery,
         setSelectedTask,
         setIsDrawerOpen,
         setIsDeleteModalOpen,

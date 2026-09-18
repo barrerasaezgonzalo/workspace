@@ -12,7 +12,6 @@ export function TaskGroup({
         <TaskColumn
           key={group.status}
           group={group}
-          taskGroupConfig={taskGroupConfig}
           onEdit={onEdit}
           onDelete={onDelete}
         />

@@ -1,15 +1,5 @@
 import { Check, Circle, Plus, Trash2 } from "lucide-react";
-import type { Subtask } from "@/app/types";
-
-type TaskSubtasksProps = {
-  subtasks: Subtask[];
-  completedSubtasks: number;
-  newSubtask: string;
-  setNewSubtask: (value: string) => void;
-  handleAddSubtask: () => void;
-  handleToggleSubtask: (id: number) => void;
-  handleDeleteSubtask: (id: number) => void;
-};
+import type { TaskSubtasksProps } from "@/app/types";
 
 export function TaskSubtasks({
   subtasks,
@@ -25,7 +15,6 @@ export function TaskSubtasks({
       <div className="mb-3 flex items-center justify-between">
         <div>
           <h3 className="text-sm font-medium text-neutral-200">Subtareas</h3>
-
           <p className="mt-1 text-xs text-neutral-500">
             {completedSubtasks} de {subtasks.length} finalizadas
           </p>
@@ -98,7 +87,7 @@ export function TaskSubtasks({
           type="button"
           onClick={handleAddSubtask}
           disabled={!newSubtask.trim()}
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white/15 text-neutral-400 transition hover:border-white/40 hover:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-30"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded border border-white/20 text-neutral-400 transition hover:border-white/40 hover:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-30 hover:border-white/40"
         >
           <Plus size={17} />
         </button>

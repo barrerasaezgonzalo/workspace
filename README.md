@@ -5,11 +5,14 @@ Workspace es una aplicación de gestión de tareas diseñada para organizar y ad
 ## Funcionalidades
 
 - Crear, editar y eliminar tareas
+- Crear, editar y eliminar notas
 - Organizar tareas por estado
+- Configurar notas como privadas
+- Mejorar contenido de notas mediante AI
 - Mover tareas entre columnas mediante Drag & Drop
 - Añadir fechas y horarios a las tareas
 - Crear y gestionar subtareas
-- Buscar tareas
+- Buscar tareas y notas
 - Vista de calendario
 - Notificaciones de tareas
 - Diseño responsive para escritorio y dispositivos móviles
@@ -45,6 +48,7 @@ Crea un archivo `.env.local` con las credenciales de Supabase:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
+GROQ_API_KEY=
 ```
 
 Inicia el servidor de desarrollo:

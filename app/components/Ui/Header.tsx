@@ -17,7 +17,7 @@ import { getFormattedToday } from "@/app/utils";
 
 export function Header() {
   const { notifications } = useNotifications();
-  const fechaFormateada = getFormattedToday();
+  const formatedDate = getFormattedToday();
   const overdueAlert = notifications.find(
     (alert) => alert.id === "overdue-tasks",
   );
@@ -43,7 +43,7 @@ export function Header() {
             <h1 className="text-sm text-white">Workspace.</h1>
           </div>
           <div className="hidden lg:flex ml-4 pt-1 text-neutral-400 text-xs first-letter:uppercase">
-            {fechaFormateada}
+            {formatedDate}
           </div>
         </div>
 

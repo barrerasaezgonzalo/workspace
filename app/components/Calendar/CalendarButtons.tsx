@@ -27,7 +27,7 @@ export function CalendarButtons({
       <button
         type="button"
         onClick={onNextMonth}
-        className="flex h-8 w-8 cursor-pointer items-center justify-center bg-neutral-900  rounded-lg border border-white/20 text-neutral-400  transition hover:border-white/50 hover:text-neutral-300  <"
+        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-white/20 bg-neutral-900 text-neutral-400 transition hover:border-white/50 hover:text-neutral-300"
       >
         <ChevronRight size={16} />
       </button>

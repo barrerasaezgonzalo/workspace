@@ -5,8 +5,7 @@ import { TaskGroup } from "./TaskGroup";
 import { ConfirmModal } from "../Ui/ConfirmModal";
 import { Toast } from "../Ui/Toast";
 import { TaskDrawer } from "./TaskDrawer";
-import { DndContext, type DragEndEvent } from "@dnd-kit/core";
-import { Task } from "@/app/types";
+import { DndContext } from "@dnd-kit/core";
 
 export function Tasks() {
   const {
@@ -22,16 +21,8 @@ export function Tasks() {
     isDeleteModalOpen,
     setIsDeleteModalOpen,
     handleDeleteTask,
-    moveTask,
+    handleDragEnd,
   } = useTasks();
-
-  const handleDragEnd = async (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over) return;
-    const taskId = Number(active.id);
-    const newStatus = over.id as Task["status"];
-    await moveTask(taskId, newStatus);
-  };
 
   return (
     <section className="w-full pt-4">

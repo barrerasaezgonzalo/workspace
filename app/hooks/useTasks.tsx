@@ -5,6 +5,8 @@ import { Check, Circle, CircleGauge } from "lucide-react";
 import { TaskContext } from "../providers/TaskProvider";
 import type { Task, TaskFormData, TaskGroupConfig } from "../types";
 import { isDateOverdue, showResponseMessage } from "../utils";
+import { DragEndEvent } from "@dnd-kit/core";
+import { SearchContext } from "../providers/SearchProvider";
 
 export function useTasks() {
   const context = useContext(TaskContext);
@@ -13,48 +15,44 @@ export function useTasks() {
     throw new Error("useTasks debe usarse dentro de TaskProvider");
   }
 
+  const searchContext = useContext(SearchContext);
+  if (!searchContext) {
+    throw new Error("useTasks debe usarse dentro de SearchProvider");
+  }
+
   const {
     tasks,
     createTask,
     updateTask,
     moveTask,
     deleteTask,
-    searchQuery,
-    setSearchQuery,
     selectedTask,
     isDrawerOpen,
     isDeleteModalOpen,
     setSelectedTask,
     setIsDrawerOpen,
     setIsDeleteModalOpen,
-    loading,
+    loadingTasks,
   } = context;
 
   const [responseOperationMessage, setResponseOperationMessage] = useState("");
-
+  const { searchQuery, setSearchQuery } = searchContext;
   const filteredTasks = tasks.filter((task) => {
     const query = searchQuery.trim().toLowerCase();
-
     if (!query) {
       return true;
     }
-
     return (
       task.title.toLowerCase().includes(query) ||
       task.summary?.toLowerCase().includes(query)
     );
   });
-
   const todoTasks = filteredTasks.filter((task) => task.status === "todo");
-
   const inProgressTasks = filteredTasks.filter(
     (task) => task.status === "in_progress",
   );
-
   const doneTasks = filteredTasks.filter((task) => task.status === "done");
-
   const totalTasks = tasks.length;
-
   const overdueTasks = tasks.filter(
     (task) => task.status !== "done" && !!task.date && isDateOverdue(task.date),
   );
@@ -99,7 +97,6 @@ export function useTasks() {
     if (!selectedTask) {
       return;
     }
-
     await deleteTask(selectedTask.id);
 
     showResponseMessage(
@@ -124,6 +121,14 @@ export function useTasks() {
   const handleOpenDelete = (task: Task) => {
     setSelectedTask(task);
     setIsDeleteModalOpen(true);
+  };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over) return;
+    const taskId = Number(active.id);
+    const newStatus = over.id as Task["status"];
+    await moveTask(taskId, newStatus);
   };
 
   const taskGroupConfig: TaskGroupConfig[] = [
@@ -181,7 +186,8 @@ export function useTasks() {
     handleUpdateTask,
     handleCreateTask,
     handleDeleteTask,
-    moveTask,
-    loading,
+    loadingTasks,
+    handleDragEnd,
+    filteredTasks
   };
 }

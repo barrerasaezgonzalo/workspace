@@ -10,7 +10,7 @@ export type Task = {
   date?: string | null;
   important: boolean;
   summary?: string | null;
-  created_at?: string;
+  createdAt?: string;
   time?: string;
   subtasks?: Subtask[];
 };
@@ -20,7 +20,6 @@ export type TaskItemProps = {
   onEdit: (task: Task) => void;
   onDelete: (task: Task) => void;
   confirming?: boolean;
-  taskGroupConfig: TaskGroupConfig[];
 };
 
 export type TaskFormData = {
@@ -30,12 +29,6 @@ export type TaskFormData = {
   time?: string;
   important: boolean;
   subtasks?: Subtask[];
-};
-
-export type TaskStatusOption = {
-  status: TaskStatus;
-  title: string;
-  className: string;
 };
 
 export type TaskGroupConfig = {
@@ -66,4 +59,20 @@ export type Subtask = {
   id: number;
   title: string;
   completed: boolean;
+};
+
+export type TaskSubtasksProps = {
+  subtasks: Subtask[];
+  completedSubtasks: number;
+  newSubtask: string;
+  setNewSubtask: (value: string) => void;
+  handleAddSubtask: () => void;
+  handleToggleSubtask: (id: number) => void;
+  handleDeleteSubtask: (id: number) => void;
+};
+
+export type TaskColumnProps = {
+  group: TaskGroupConfig;
+  onEdit: (task: TaskGroupConfig["tasks"][number]) => void;
+  onDelete: (task: TaskGroupConfig["tasks"][number]) => void;
 };

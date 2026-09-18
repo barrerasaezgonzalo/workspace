@@ -29,7 +29,7 @@ export function ScrollToTop() {
           behavior: "smooth",
         })
       }
-      className="fixed bottom-6 right-6 z-50 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-neutral-700 bg-neutral-800 text-neutral-300 shadow-lg transition hover:bg-neutral-700 hover:text-white"
+      className="fixed bottom-2 right-2 z-40 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-neutral-700 bg-neutral-800 text-neutral-300 shadow-lg transition hover:bg-neutral-700 hover:text-white"
       title="Volver arriba"
       aria-label="Volver arriba"
     >

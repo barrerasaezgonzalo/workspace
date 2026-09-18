@@ -1,20 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  calendarDateFormatter,
-  calendarDayFormatter,
-  calendarMonthFormatter,
-  getCalendarMonthLabel,
-} from "@/app/utils";
+import { calendarMonthFormatter, getCalendarMonthLabel } from "@/app/utils";
 import { useTasks } from "./useTasks";
 
 export function useCalendar() {
-  const { tasks } = useTasks();
+  const { filteredTasks } = useTasks();
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const visibleEvents = useMemo(() => {
-    return tasks.filter((task) => {
+    return filteredTasks.filter((task) => {
       if (!task.date) {
         return false;
       }
@@ -24,7 +19,7 @@ export function useCalendar() {
         taskDate.getMonth() === currentDate.getMonth()
       );
     });
-  }, [tasks, currentDate]);
+  }, [filteredTasks, currentDate]);
 
   const handleNextMonth = () => {
     setCurrentDate(
@@ -48,9 +43,6 @@ export function useCalendar() {
     visibleEvents,
     currentDate,
     monthLabel,
-    dateFormatter: calendarDateFormatter,
-    dayFormatter: calendarDayFormatter,
-    monthFormatter: calendarMonthFormatter,
     handleCurrentMonth,
     handleNextMonth,
     handlePreviousMonth,
