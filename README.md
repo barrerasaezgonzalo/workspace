@@ -61,4 +61,9 @@ Abre `http://localhost:3000` en tu navegador.
 
 ## Capturas
 
+<img width="1919" height="901" alt="Screen2" src="https://github.com/user-attachments/assets/ef0e34b5-636c-4ec4-9461-1d3c1e625770" />
+<img width="1911" height="764" alt="Screen1" src="https://github.com/user-attachments/assets/c978aab9-e6c5-48d8-a286-26d2a24e4e1e" />
+
 ## Vercel URL
+
+https://workspace-gold-nu-83.vercel.app
